@@ -5,16 +5,34 @@
 # This program prints user inputs into their mailing address
 
 
-def apartment_check(apartment=None):
+def apartment_check(
+    full_name,
+    street_number,
+    street_name,
+    city_name,
+    province,
+    postal_code,
+    apartment=None,
+):
     # return apartment value
 
     # process
-    live_in_apartment = apartment
-    if apartment != None:
-        live_in_apartment = live_in_apartment + " " + apartment[0]
-    live_in_apartment = ""
+    if apartment is not None:
+        live_in_apartment = "{0} \n{1}-{2} {3} \n{4} {5}  {6}".format(
+            full_name,
+            apartment,
+            street_number,
+            street_name,
+            city_name,
+            province,
+            postal_code,
+        )
+    else:
+        live_in_apartment = "{0} \n{1} {2} \n{3} {4}  {5}".format(
+            full_name, street_number, street_name, city_name, province, postal_code
+        )
 
-    return live_in_apartment
+    return live_in_apartment.upper()
 
 
 def main():
@@ -32,19 +50,25 @@ def main():
     province = input("Enter your province (as an abbreviation, ex: ON, BC): ")
     postal_code = input("Enter your postal code (123 456): ")
 
-    if question_for_user.upper() == "Y" or question_for_user.upper() == "YES":
-        prompt_list = apartment_check(apartment)
-        print("\n" + full_name.upper())
-        print(apartment + "-" + street_number.upper(), street_name.upper())
-        print(city_name.upper(), province.upper(), "", postal_code.upper())
+    if apartment is not None:
+        prompt_list = apartment_check(
+            full_name,
+            street_number,
+            street_name,
+            city_name,
+            province,
+            postal_code,
+            apartment,
+        )
 
     else:
-        prompt_list = apartment_check(apartment)
-        print("\n" + full_name.upper())
-        print(street_number.upper(), street_name.upper())
-        print(city_name.upper(), province.upper(), "", postal_code.upper())
+        prompt_list = apartment_check(
+            full_name, street_number, street_name, city_name, province, postal_code
+        )
 
+    print("")
     print(prompt_list)
+    print("\nDone.")
 
 
 if __name__ == "__main__":
