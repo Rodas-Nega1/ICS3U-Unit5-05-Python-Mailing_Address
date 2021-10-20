@@ -14,7 +14,6 @@ def apartment_check(
     postal_code,
     apartment=None,
 ):
-    # return apartment value
 
     # process
     if apartment is not None:
@@ -50,25 +49,36 @@ def main():
     province = input("Enter your province (as an abbreviation, ex: ON, BC): ")
     postal_code = input("Enter your postal code (123 456): ")
 
-    if apartment is not None:
-        prompt_list = apartment_check(
-            full_name,
-            street_number,
-            street_name,
-            city_name,
-            province,
-            postal_code,
-            apartment,
-        )
+    try:
+        apartment_int = int(apartment)
+        street_number_int = int(street_number)
 
-    else:
-        prompt_list = apartment_check(
-            full_name, street_number, street_name, city_name, province, postal_code
-        )
+        if apartment_int or street_number_int < 0:
+            print("")
+            print("That is an invalid number.")
 
-    print("")
-    print(prompt_list)
-    print("\nDone.")
+        if apartment is not None:
+            prompt_list = apartment_check(
+                full_name,
+                street_number,
+                street_name,
+                city_name,
+                province,
+                postal_code,
+                apartment,
+            )
+
+        else:
+            prompt_list = apartment_check(
+                full_name, street_number, street_name, city_name, province, postal_code
+            )
+
+    except Exception:
+        print("")
+        print("That is an invalid number.")
+
+    finally:
+        print("\nDone.")
 
 
 if __name__ == "__main__":
