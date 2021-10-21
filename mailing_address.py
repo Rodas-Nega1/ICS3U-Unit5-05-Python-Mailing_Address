@@ -5,13 +5,31 @@
 # This program prints user inputs into their mailing address
 
 
-def apartment_check(full_name, street_number, street_name, city_name, province, postal_code, apartment=None,):
+def apartment_check(
+    full_name,
+    street_number,
+    street_name,
+    city_name,
+    province,
+    postal_code,
+    apartment=None,
+):
 
     # process
     if apartment is not None:
-        live_in_apartment = "{0} \n{1}-{2} {3} \n{4} {5}  {6}".format(full_name, apartment, street_number, street_name, city_name, province, postal_code)
+        live_in_apartment = "{0} \n{1}-{2} {3} \n{4} {5}  {6}".format(
+            full_name,
+            apartment,
+            street_number,
+            street_name,
+            city_name,
+            province,
+            postal_code,
+        )
     else:
-        live_in_apartment = "{0} \n{1} {2} \n{3} {4}  {5}".format(full_name, street_number, street_name, city_name, province, postal_code)
+        live_in_apartment = "{0} \n{1} {2} \n{3} {4}  {5}".format(
+            full_name, street_number, street_name, city_name, province, postal_code
+        )
 
     return live_in_apartment.upper()
 
@@ -30,28 +48,36 @@ def main():
     city_name = input("Enter your city name: ")
     province = input("Enter your province (as an abbreviation, ex: ON, BC): ")
     postal_code = input("Enter your postal code (123 456): ")
-        
+
     try:
-        if apartment is None:
-            pass
-        else:
-            apartment_int = int(apartment)
         street_number_int = int(street_number)
 
-        if apartment_int < 0 or street_number_int < 0:
+        if street_number_int < 0:
             print("")
             print("That is an invalid number.")
-
-        else: 
-            if apartment is not None:
-                prompt_list = apartment_check(full_name, street_number, street_name, city_name, province, postal_code, apartment)
+        elif apartment is not None:
+            apartment_int = int(apartment)
+            if apartment_int < 0:
                 print("")
-                print(prompt_list)
-
+                print("That is an invalid number.")
             else:
-                prompt_list = apartment_check(full_name, street_number, street_name, city_name, province, postal_code)
+                prompt_list = apartment_check(
+                    full_name,
+                    street_number,
+                    street_name,
+                    city_name,
+                    province,
+                    postal_code,
+                    apartment,
+                )
                 print("")
                 print(prompt_list)
+        else:
+            prompt_list = apartment_check(
+                full_name, street_number, street_name, city_name, province, postal_code
+            )
+            print("")
+            print(prompt_list)
 
     except Exception:
         print("")
